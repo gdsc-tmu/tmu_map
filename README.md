@@ -1,13 +1,13 @@
 # Both non-coding and coding people are welcomed!!!
-- Non-coding part: there are tasks that need ideation
-- Coding part: of course, we are making a software
+Non-coding part: there are tasks that need ideation<br>
+Coding part: of course we are making a software
 # Project name: tmu-map :world_map:
 This is a project for creating a useful map for Tokyo Metropolitan University!
 # How this project is structured for each task :gear:
 ![A scheme of this project](/agile_dev_scheme.png)
 
-(A figure was edited by kisu-yuyu from <https://www.w3schools.in/sdlc/agile-model>. Accessed date: March 4, 2023.)
-
+(A figure was edited by kisu-yuyu from <https://www.w3schools.in/sdlc/agile-model>. Accessed date: March 4, 2023.)<br>
+You will find each step in the "Projects" part, so let's go to the next section :arrow_down:
 # How to participate :raised_hands:
 1. Go to the "Projects"
 2. Go to "tmu-map"
