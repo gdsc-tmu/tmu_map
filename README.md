@@ -1,6 +1,6 @@
 # Both non-coding and coding people are welcomed!!!
-Non-coding part: there are tasks that need ideation
-Coding part: of course, we are making a software
+- Non-coding part: there are tasks that need ideation
+- Coding part: of course, we are making a software
 # tmu-map :world_map:
 This is a project for creating a useful map for Tokyo Metropolitan University!
 # How this project is structured for each task :gear:
