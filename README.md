@@ -1,4 +1,4 @@
-# Non-coding people are welcomed!!!
+# Both non-coding and coding people are welcomed!!!
 There are tasks that need ideation!
 # tmu-map :world_map:
 This is a project for creating a useful map for Tokyo Metropolitan University!
