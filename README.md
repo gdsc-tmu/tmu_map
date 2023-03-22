@@ -22,3 +22,12 @@ You will find each step in the "Projects" part, so let's go to the next section 
 - Work together with users!
 - Find motivated people!
 - Keep learning!
+# How to see the current progress just for your reference though
+To see the current progress of our work:
+
+1. ```cd <path to your local working directory>```<br>
+2. ```git clone https://github.com/gdsc-tmu/tmu-map.git```<br>
+3. ```cd tmu-map```<br>
+4. ```source bin/activate```<br>
+5. ```cd tmu_map_code```<br>
+6. ```python manage.py runserver```<br>
