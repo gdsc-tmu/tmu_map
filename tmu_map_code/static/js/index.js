@@ -5,8 +5,16 @@ function initMap() {
     center: latlng,
     zoom: 18,
   });
-  const ctaLayer = new google.maps.KmlLayer({
-    url: "file:///Users/yujirokisu/Desktop/three-stoied_building.kml",
- 
-  });
+
+    // Create a new KML layer instance
+    const kmlLayer = new google.maps.KmlLayer({
+      url: "https://kisu-yuyu.github.io/Warehouse/minamiosawa_bldg1_AV.kml",
+      map: map,
+    });
+  
+    // Listen for KML layer events
+    google.maps.event.addListener(kmlLayer, "click", (event) => {
+      console.log("Clicked on KML layer!", event);
+    });
+
 }
