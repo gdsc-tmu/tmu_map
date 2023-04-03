@@ -30,4 +30,4 @@ To see the current progress of our work:
 3. ```cd tmu-map```<br>
 4. ```source bin/activate```<br>
 5. ```python manage.py runserver```<br>
-(You need this in the project directory too: ```pip3 install -r requirements.txt```)
+(You need to run this in the project directory too: ```pip3 install -r requirements.txt```)
