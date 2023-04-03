@@ -6,7 +6,7 @@ function initMap() {
     zoom: 18,
   });
   const ctaLayer = new google.maps.KmlLayer({
-    url: "",
-    
+    url: "file:///Users/yujirokisu/Desktop/three-stoied_building.kml",
+ 
   });
 }
