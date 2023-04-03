@@ -29,5 +29,5 @@ To see the current progress of our work:
 2. ```git clone https://github.com/gdsc-tmu/tmu-map.git```<br>
 3. ```cd tmu-map```<br>
 4. ```source bin/activate```<br>
-5. ```cd tmu_map_code```<br>
-6. ```python manage.py runserver```<br>
+5. ```python manage.py runserver```<br>
+(You need this in the project directory too: ```pip3 install -r requirements.txt```)
