@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja">
+<head>
+    <title>Google Maps JavaScript API</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'tmu_map/css/style.css' %}">
+</head>
+<body>
+{#    <div>#}
+{#        <form method="get" action="./">#}
+{#            <label for="google_api_key_input">Input Google API Key:</label>#}
+{#            <input id="google_api_key_input" name="key" type="text">#}
+{#            <button type="submit" id="google_api_key_button">Put API Key</button>#}
+{#        </form>#}
+{#    </div>#}
+
+    <div id="map"></div>
+    <script src="{% static 'tmu_map/js/index.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
+</body>
+</html>

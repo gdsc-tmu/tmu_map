@@ -1,7 +1,10 @@
+import os
 from django.shortcuts import render
 
+TMU_MAP_GOOGLE_MAP_API_KEY = os.getenv("TMU_MAP_GOOGLE_MAP_API_KEY")
+
 def index(request):
-    context = dict()
-    if (k := request.GET.get('key')) is not None:
-        context['key'] = k
-    return render(request, 'map/index.html', context)
+    context = {
+        'key': TMU_MAP_GOOGLE_MAP_API_KEY,
+    }
+    return render(request, 'tmu_map/index.html', context)
