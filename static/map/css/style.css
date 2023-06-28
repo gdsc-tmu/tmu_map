@@ -1,5 +1,25 @@
 #map {
     width: 1000px;
-    height: 700px;
+    height: 500px;
     border: 1px solid #999;
   }
+  ul {
+    list-style: none;
+  }
+.container {
+display: flex;
+}
+.searched-data {
+  width: 50%;
+  float: left;
+  padding: 20px;
+  border: 2px solid gainsboro;
+}  
+.matched-data {
+  width: 50%;
+  float: left;
+  padding: 20px;
+  border: 2px solid gainsboro;
+}  
+
+  

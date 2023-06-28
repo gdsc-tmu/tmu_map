@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'map'
 ]
 
 MIDDLEWARE = [
@@ -74,10 +75,25 @@ WSGI_APPLICATION = 'tmu_map.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+import os
+from dotenv import load_dotenv
+env_path = os.path.join(os.path.dirname(__file__), '../.env')
+load_dotenv(env_path)
+
+DATABASE_NAME = os.environ.get("DB_NAME")
+DATABASE_USER = os.environ.get("DB_USER")
+DATABASE_PW = os.environ.get("DB_PASSWORD")
+DATABASE_HOST = os.environ.get("DB_HOST")
+DATABASE_PORT = os.environ.get("DB_PORT")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": DATABASE_NAME,
+        "USER": DATABASE_USER,
+        "PASSWORD": DATABASE_PW,
+        "HOST": DATABASE_HOST,
+        "PORT": DATABASE_PORT,
     }
 }
 

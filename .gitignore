@@ -2,6 +2,12 @@
 .DS_Store
 myvenv/
 pyvenv.cfg
+.vscode/
+
+*.py[co]
+*.sw[po]
+*~
+/secrets.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

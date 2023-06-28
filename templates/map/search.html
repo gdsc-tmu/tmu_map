@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'map/css/style.css' %}" />
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2eGBY5tE1xDt2ZI7gM5E208hUC6Q4SSE&callback=initMap"
+      async
+      defer
+    ></script>
+    <script>
+      function initMap() {
+        var mapData = JSON.parse('{{ data|safe }}');
+
+        var lastLocation = mapData[mapData.length - 1]; // Get the last location
+
+        var map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: lastLocation.lat, lng: lastLocation.lng }, // Set the center to the last location
+          zoom: 18, // Adjust the initial zoom level as desired
+        });
+
+        for (var i = 0; i < mapData.length; i++) {
+          var location = mapData[i];
+          var coordinate = new google.maps.LatLng(location.lat, location.lng);
+
+          var marker = new google.maps.Marker({
+            position: coordinate,
+            map: map,
+            title: location.title,
+            label: {
+              text: location.title,
+              color: "black",
+              fontSize: "20px",
+            },
+          });
+        }
+      }
+    </script>
+    <title>Search</title>
+  </head>
+  <body>
+    <p>時間がある方々、教室の緯度と経度を集めるの手伝ってね</p>
+    <p>教室の地図は<a href="https://kisu-yuyu.github.io/Warehouse/">こちら</a>から</p>
+    <p>教室の場所を<a href="https://www.google.com/maps/d/edit?mid=1TmiL0alBBYYRQY7Y-ut4Z1PifT7mbMs&usp=sharing">Google My Map</a>
+      上で確認、そこをクリックしてマーカーを置いたら、該当する教室番号と何号館かを記入</p>
+    <p>ルール: 他の人が頑張ったのは消さない、間違っていたら直してあげる、荒らさない</p>
+    <div id="map"></div>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+    <div class="container">
+      <div class="searched-data">
+        <p>検索に当てはまる講義:</p>
+        <p>{% for result in results %}</p>
+        <p>時期: {{ result.season }}</p>
+        <p>曜日: {{ result.day }}</p>
+        <p>時限: {{ result.period }}</p>
+        <p>Lecture ID: {{ result.lecture_id }}</p>
+        <p>Name: {{ result.name }}</p>
+        <p>Building: {{ result.building }}</p>
+        <p>Room: {{ result.room_id }}</p>
+        <hr />
+        {% empty %}
+        <p>講義 nothing or データ足りん</p>
+        {% endfor %}
+      </div>
+
+      <div class="matched-data">
+        <p>空いてる教室:</p>
+        {% for row in non_matching_rows %}
+        <p>{{ row.building }}, {{ row.name }}教室</p>
+        {% empty %}
+        <p>空き教室nothing or データ足りん</p>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
+
