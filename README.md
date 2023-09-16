@@ -8,3 +8,5 @@ so, make sure you are using that one!
 
 3. Before running in local environment, you need .env file which include information needed to access the database! <br>
 To get the file, please contact me via yujirokisu@gmail.com or just DM me in GDSC Slack :thumbsup:
+
+4. We use python version 3.11.2
