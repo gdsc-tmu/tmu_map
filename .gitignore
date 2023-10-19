@@ -3,7 +3,7 @@
 myvenv/
 pyvenv.cfg
 .vscode/
-
+.env
 *.py[co]
 *.sw[po]
 *~

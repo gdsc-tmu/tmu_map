@@ -1,25 +1,82 @@
+body {
+  font-family: sans-serif;
+}
 #map {
-    width: 1000px;
+    width: 100%;
     height: 500px;
-    border: 1px solid #999;
+    border-radius: 20px;
   }
-  ul {
-    list-style: none;
-  }
+ul {
+  list-style: none;
+}
 .container {
-display: flex;
+  display: flex;
 }
 .searched-data {
   width: 50%;
   float: left;
   padding: 20px;
   border: 2px solid gainsboro;
+  border-radius: 20px;
 }  
 .matched-data {
   width: 50%;
   float: left;
   padding: 20px;
   border: 2px solid gainsboro;
-}  
+  border-radius: 20px;
+}
 
-  
+.search-button {
+  width: 100%;
+  padding: 10px;
+  border: transparent;
+  border-radius: 20px;
+  margin: 10px 0px;
+}
+
+/* Side panel */
+.sidepanel  {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  height: 250px;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  border-radius: 20px;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: white;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  margin: 10px 0px;
+  border-radius: 20px;
+}

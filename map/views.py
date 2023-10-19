@@ -77,3 +77,7 @@ def get_json_data(non_matching_rows):
         }
         coordinationData.append(coordinates)
     return json.dumps(coordinationData)
+
+# Go to class Location Map
+def class_location_map(request):
+    return render(request, "map/class_location_map.html")

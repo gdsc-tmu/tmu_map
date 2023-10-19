@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'map/css/style.css' %}" />
+    <script>
+      function openNav() {
+        document.getElementById("mySidepanel").style.width = "250px";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidepanel").style.width = "0";
+      }
+    </script>
+    <title>TMU Map</title>
+  </head>
+  <body>
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="{% url 'map' %}">空き教室 Map</a>
+        <a href="https://gdsc.community.dev/tokyo-metropolitan-university/" target="_blank">GDSC TMUについて</a>
+        <a href="{% url 'class_location_map' %}" target="_blank">教室の地図データ更新状況</a>
+        <a href="https://forms.gle/erVuRJv3L5z8sJ2w8" target="_blank">問い合わせ</a>
+    </div>
+    <button class="openbtn" onclick="openNav()">☰ TMU Map</button> 
+    <p>教室の緯度と経度を集めるの手伝ってくれると助かります！</p>
+    <p>教室の地図は<a href="https://kisu-yuyu.github.io/Warehouse/" target="_blank">こちら</a>から</p>
+    <p>教室の場所を<a href="https://www.google.com/maps/d/edit?mid=1TmiL0alBBYYRQY7Y-ut4Z1PifT7mbMs&usp=sharing" target="_blank">Google My Map</a>上で確認、そこをクリックしてマーカーを置いたら、該当する教室番号と何号館かを記入</p>
+    <p>ルール: 他の人が頑張ったのは消さない、間違っていたら直してあげる、荒らさない</p>
+    <p>教室情報がTMU Mapに更新されるのは2週に１回です</p>
+  </body>
+</html>
