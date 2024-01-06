@@ -86,6 +86,8 @@ DATABASE_PW = os.environ.get("DB_PASSWORD")
 DATABASE_HOST = os.environ.get("DB_HOST")
 DATABASE_PORT = os.environ.get("DB_PORT")
 
+"""
+# For MYSQL
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -96,6 +98,17 @@ DATABASES = {
         "PORT": DATABASE_PORT,
     }
 }
+"""
+
+# For SQLite
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+
 
 
 # Password validation

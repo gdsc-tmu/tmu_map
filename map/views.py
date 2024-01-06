@@ -12,7 +12,7 @@ def search_page(request):
             day = form.cleaned_data["曜日"]
             period = form.cleaned_data["時限"]
 
-            joined_tables= join_syllabus_base_info_and_classroom_allocation_full_info()
+            joined_tables = join_syllabus_base_info_and_classroom_allocation_full_info()
 
             results = get_results(season, day, period, joined_tables)
          
@@ -43,8 +43,8 @@ def join_syllabus_base_info_and_classroom_allocation_full_info():
     )
 
     queryset = SyllabusBaseInfo.objects.annotate(
-        building=Subquery(classroom_allocations.values('building')),
-        room_id=Subquery(classroom_allocations.values('room_id'))
+        building=Subquery(classroom_allocations.values('building')[:1]),
+        room_id=Subquery(classroom_allocations.values('room_id')[:1])
     )
 
     return queryset

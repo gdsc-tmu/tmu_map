@@ -54,7 +54,7 @@
   <body>
 
     <div id="mySidepanel" class="sidepanel">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
       <a href="{% url 'map' %}">空き教室 Map</a>
       <a href="https://gdsc.community.dev/tokyo-metropolitan-university/" target="_blank">GDSC TMUについて</a>
       <a href="{% url 'class_location_map' %}" target="_blank">教室の地図データ更新状況</a>
@@ -72,13 +72,13 @@
       <div class="searched-data">
         <p>検索に当てはまる講義:</p>
         <p>{% for result in results %}</p>
+        <!-----
         <p>時期: {{ result.season }}</p>
         <p>曜日: {{ result.day }}</p>
         <p>時限: {{ result.period }}</p>
-        <p>Lecture ID: {{ result.lecture_id }}</p>
-        <p>Name: {{ result.name }}</p>
-        <p>Building: {{ result.building }}</p>
-        <p>Room: {{ result.room_id }}</p>
+        ---->
+        <p>{{ result.name }}(ID {{ result.lecture_id }})</p>
+        <p>{{ result.building }}館{{ result.room_id }}室</p>
         <hr />
         {% empty %}
         <p>講義 nothing or データ足りん</p>
@@ -88,7 +88,7 @@
       <div class="matched-data">
         <p>空いてる教室:</p>
         {% for row in non_matching_rows %}
-        <p>{{ row.building }}, {{ row.name }}教室</p>
+        <p>{{ row.building }}, {{ row.name }}室</p>
         {% empty %}
         <p>空き教室nothing or データ足りん</p>
         {% endfor %}
