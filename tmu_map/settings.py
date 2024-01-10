@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'map'
+    'map',
+    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,7 @@ WSGI_APPLICATION = 'tmu_map.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 import os
+"""
 from dotenv import load_dotenv
 env_path = os.path.join(os.path.dirname(__file__), '../.env')
 load_dotenv(env_path)
@@ -86,7 +88,7 @@ DATABASE_PW = os.environ.get("DB_PASSWORD")
 DATABASE_HOST = os.environ.get("DB_HOST")
 DATABASE_PORT = os.environ.get("DB_PORT")
 
-"""
+
 # For MYSQL
 DATABASES = {
     "default": {
@@ -154,3 +156,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configure compressor
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+

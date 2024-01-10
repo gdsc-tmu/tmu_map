@@ -1,6 +1,11 @@
 from django import forms
 
 class SearchForm(forms.Form):
+    class Media:
+        css = {
+            "all": ["style.css"],
+        }
+        js = ["main.js"]
     SEASON_CHOICES = [
         ('前期', '前期'),
         ('後期', '後期'),
@@ -25,6 +30,7 @@ class SearchForm(forms.Form):
         ('7限', '7限'),
     ]
 
-    時期 = forms.ChoiceField(choices=SEASON_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
-    曜日 = forms.ChoiceField(choices=DAY_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
-    時限 = forms.ChoiceField(choices=PERIOD_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    時期 = forms.ChoiceField(choices=SEASON_CHOICES, widget=forms.Select(attrs={'class': 'custom-select'}))
+    曜日 = forms.ChoiceField(choices=DAY_CHOICES, widget=forms.Select(attrs={'class': 'custom-select'}))
+    時限 = forms.ChoiceField(choices=PERIOD_CHOICES, widget=forms.Select(attrs={'class': 'custom-select'}))
+

@@ -81,3 +81,6 @@ def get_json_data(non_matching_rows):
 # Go to class Location Map
 def class_location_map(request):
     return render(request, "map/class_location_map.html")
+
+def index(request):
+    return render(request, 'map/index.html')

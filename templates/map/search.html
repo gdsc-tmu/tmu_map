@@ -1,12 +1,19 @@
 
 <!DOCTYPE html>
 {% load static %}
+{% load compress %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'map/css/style.css' %}" />
+    
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+    
+
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2eGBY5tE1xDt2ZI7gM5E208hUC6Q4SSE&callback=initMap"
       async
@@ -21,6 +28,9 @@
         var map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: lastLocation.lat, lng: lastLocation.lng }, // Set the center to the last location
           zoom: 18, // Adjust the initial zoom level as desired
+          disableDefaultUI: true, // Disable UI controls
+          zoomControl: true, // Enable zoom controls
+
         });
 
         for (var i = 0; i < mapData.length; i++) {
@@ -40,43 +50,58 @@
         }
       }
     </script>
-    <script>
-      function openNav() {
-        document.getElementById("mySidepanel").style.width = "250px";
-      }
-      
-      function closeNav() {
-        document.getElementById("mySidepanel").style.width = "0";
-      }
-    </script>
     <title>TMU Map</title>
   </head>
   <body>
-
-    <div id="mySidepanel" class="sidepanel">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
-      <a href="{% url 'map' %}">空き教室 Map</a>
-      <a href="https://gdsc.community.dev/tokyo-metropolitan-university/" target="_blank">GDSC TMUについて</a>
-      <a href="{% url 'class_location_map' %}" target="_blank">教室の地図データ更新状況</a>
-      <a href="https://forms.gle/erVuRJv3L5z8sJ2w8" target="_blank">問い合わせ</a>
-    </div>
-    <button class="openbtn" onclick="openNav()">☰ TMU Map</button> 
+    <div class="map-screen">
+      <div id="map"></div>
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">☰ TMU Map</button>
+      </div>
+      <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+<!------------------------------------------------------------------>
+<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+  </svg>
+  </button>
   
+  <!-- Dropdown menu -->
+  <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+        </li>
+      </ul>
+  </div>
+<!------------------------------------------------------------------>  
+        <form method="post">
+              {% csrf_token %}
+              <select name="{{ form.時期.name }}">
+                {% for choice in form.時期.choices %}
+                  <option value="{{ choice }}">{{ choice }}</option>
+                {% endfor %}
+              </select>
+              {{ form.曜日 }}
+              {{ form.時限 }}
+            <button type="submit">検索</button>
+        </form>
+      </div>
+    </div>
 
-    <div id="map"></div>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit" class="search-button">Search</button>
-    </form>
     <div class="container">
       <div class="searched-data">
         <p>検索に当てはまる講義:</p>
         <p>{% for result in results %}</p>
-        <!-----
-        <p>時期: {{ result.season }}</p>
-        <p>曜日: {{ result.day }}</p>
-        <p>時限: {{ result.period }}</p>
-        ---->
         <p>{{ result.name }}(ID {{ result.lecture_id }})</p>
         <p>{{ result.building }}館{{ result.room_id }}室</p>
         <hr />
@@ -94,6 +119,8 @@
         {% endfor %}
       </div>
     </div>
+    <script src="{% static 'map/js/main.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
   </body>
 </html>
 
