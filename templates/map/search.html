@@ -1,126 +1,178 @@
-
 <!DOCTYPE html>
 {% load static %}
-{% load compress %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'map/css/style.css' %}" />
-    
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'src/output.css' %}">
-    {% endcompress %}
-    
-
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2eGBY5tE1xDt2ZI7gM5E208hUC6Q4SSE&callback=initMap"
-      async
-      defer
-    ></script>
     <script>
+      function TMUmapHome() {
+        const centreAtTMU = { lat: 35.616957028655015, lng: 139.37734852834322 };
+            var map = new google.maps.Map(document.getElementById("map"), {
+            center: centreAtTMU,
+            zoom: 18,
+            disableDefaultUI: true,
+            zoomControl: true,
+            });
+
+            const contentString =
+            '<div style="font-family: Tsukushi B Round Gothic;">' +
+            '<h1>TMU Map</h1>' +
+            "<h2>TMU Mapは都立大の便利情報を地図上で見ることができるアプリ</h2>" +
+            "<h2>左上のボタンから空き教室を探したい時間帯を検索してみてね</h2>" +
+            '<h2>製作者：<a href="https://twitter.com/yuyu_lab_tmu" target="blank">GDSC TMUメンバー YuYu&#39;s Lab</a><h2>' +
+            "</div>";
+
+            var offset = new google.maps.Size(0, 150);
+
+            const infowindow = new google.maps.InfoWindow({
+              content: contentString,
+              ariaLabel: "TMU",
+              pixelOffset: offset
+            });
+            
+            const marker = new google.maps.Marker({
+              position: centreAtTMU,
+              map,
+              title: "TMU Map",
+            });
+
+            infowindow.open({
+            anchor: marker,
+            map,
+            });
+      }
+
       function initMap() {
-        var mapData = JSON.parse('{{ data|safe }}');
+          try {
+            var mapData = JSON.parse('{{ data|safe }}');
 
-        var lastLocation = mapData[mapData.length - 1]; // Get the last location
+            var lastLocation = mapData[1]; // Get the last location
 
-        var map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: lastLocation.lat, lng: lastLocation.lng }, // Set the center to the last location
-          zoom: 18, // Adjust the initial zoom level as desired
-          disableDefaultUI: true, // Disable UI controls
-          zoomControl: true, // Enable zoom controls
+            var map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: lastLocation.lat, lng: lastLocation.lng }, // Set the center to the last location
+            zoom: 18, // Adjust the initial zoom level as desired
+            disableDefaultUI: true, // Disable UI controls
+            zoomControl: true, // Enable zoom controls
 
-        });
+            });
 
-        for (var i = 0; i < mapData.length; i++) {
-          var location = mapData[i];
-          var coordinate = new google.maps.LatLng(location.lat, location.lng);
+            for (var i = 0; i < mapData.length; i++) {
+              var location = mapData[i];
+              var coordinate = new google.maps.LatLng(location.lat, location.lng);
 
-          var marker = new google.maps.Marker({
-            position: coordinate,
-            map: map,
-            title: location.title,
-            label: {
-              text: location.title,
-              color: "black",
-              fontSize: "20px",
-            },
-          });
-        }
+              var marker = new google.maps.Marker({
+                position: coordinate,
+                map: map,
+                title: location.title,
+                label: {
+                  text: location.title,
+                  color: "black",
+                  fontSize: "20px",
+                },
+              });
+            }
+          } catch (e) {
+            console.log(e);
+            TMUmapHome();
+          }
       }
     </script>
-    <title>TMU Map</title>
+  <title>TMU Map</title>
   </head>
   <body>
     <div class="map-screen">
       <div id="map"></div>
       <div id="main">
-        <button class="openbtn" onclick="openNav()">☰ TMU Map</button>
+        <button class="openbtn" onclick="openNav()">TMU Map</button>
       </div>
-      <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-<!------------------------------------------------------------------>
-<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-  </svg>
-  </button>
-  
-  <!-- Dropdown menu -->
-  <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-        </li>
-      </ul>
+    <div id="mySidebar" class="sidebar">
+        <svg class="closebtn" onclick="closeNav()" width="80" height="80" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="25.2569" cy="25.5504" r="16.6361" transform="rotate(-90 25.2569 25.5504)" stroke="black" stroke-width="2.08134" stroke-linejoin="round"/>
+          <path d="M18.4986 26.0704L32.0154 26.0704" stroke="black" stroke-width="2.08134" stroke-linejoin="round"/>
+          <path d="M23.6974 19.8318C21.2611 22.2681 19.8951 23.634 17.4588 26.0703L23.6974 32.3088" stroke="black" stroke-width="2.08134" stroke-linejoin="round"/>
+        </svg>
+
+      <div class="dropDownSection">
+        <div class="dropdown">
+          <button id="dropdownButtonSemester" onclick="semesterSelect()" class="dropbtn">学期</button>
+          <div id="semesterSelect" class="dropdown-content">
+            <a class="dropdown-element" onclick="setSelectedOptionSemester('前期')">前期</a>
+            <a class="dropdown-element" onclick="setSelectedOptionSemester('後期')">後期</a>
+            <a class="dropdown-element" onclick="setSelectedOptionSemester('集中')">集中</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button id="dropdownButtonDay" onclick="daySelect()" class="dropbtn">曜日</button>
+          <div id="daySelect" class="dropdown-content">
+            <a class="dropdown-element" onclick="setSelectedOptionDay('月')">月</a>
+            <a class="dropdown-element" onclick="setSelectedOptionDay('火')">火</a>
+            <a class="dropdown-element" onclick="setSelectedOptionDay('水')">水</a>
+            <a class="dropdown-element" onclick="setSelectedOptionDay('木')">木</a>
+            <a class="dropdown-element" onclick="setSelectedOptionDay('金')">金</a>
+            <a class="dropdown-element" onclick="setSelectedOptionDay('土')">土</a>
+            <a class="dropdown-element" onclick="setSelectedOptionDay('日')">日</a>
+
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button id="dropdownButtonPeriod" onclick="periodSelect()" class="dropbtn">時限</button>
+          <div id="periodSelect" class="dropdown-content">
+            <a onclick="setSelectedOptionPeriod('1限')">1限</a>
+            <a onclick="setSelectedOptionPeriod('2限')">2限</a>
+            <a onclick="setSelectedOptionPeriod('3限')">3限</a>
+            <a onclick="setSelectedOptionPeriod('4限')">4限</a>
+            <a onclick="setSelectedOptionPeriod('5限')">5限</a>
+            <a onclick="setSelectedOptionPeriod('6限')">6限</a>
+            <a onclick="setSelectedOptionPeriod('7限')">7限</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <form id="form-submit" style="display: none;" method="post" >
+            {% csrf_token %}
+            {{ form.semester }}
+            {{ form.day }}
+            {{ form.period }}
+          </form>
+          <button form="form-submit" class="submitButton" type="submit" onclick="closeNav();">検索</button>
+        </div>
+      </div>
+      <div>
+        <h3 class="link1"><a onclick="TMUmapHome(); closeNav();"><u>TMU Mapについて</u></a></h3>
+        <h3 class="link2"><a href="https://www.w3schools.com/html/html_form_attributes_form.asp" onclick="closeNav();"><u>利用規約</u></a></h3>
+      </div>
+    </div>
   </div>
-<!------------------------------------------------------------------>  
-        <form method="post">
-              {% csrf_token %}
-              <select name="{{ form.時期.name }}">
-                {% for choice in form.時期.choices %}
-                  <option value="{{ choice }}">{{ choice }}</option>
-                {% endfor %}
-              </select>
-              {{ form.曜日 }}
-              {{ form.時限 }}
-            <button type="submit">検索</button>
-        </form>
-      </div>
+
+  <div class="container">
+    <div class="searched-data">
+      <p>検索に当てはまる講義:</p>
+      <p>{% for result in results %}</p>
+      <p>{{ result.name }}(ID {{ result.lecture_id }})</p>
+      <p>{{ result.building }}館{{ result.room_id }}室</p>
+      <hr />
+      {% empty %}
+      <p>講義 nothing or データ足りん</p>
+      {% endfor %}
     </div>
 
-    <div class="container">
-      <div class="searched-data">
-        <p>検索に当てはまる講義:</p>
-        <p>{% for result in results %}</p>
-        <p>{{ result.name }}(ID {{ result.lecture_id }})</p>
-        <p>{{ result.building }}館{{ result.room_id }}室</p>
-        <hr />
-        {% empty %}
-        <p>講義 nothing or データ足りん</p>
-        {% endfor %}
-      </div>
-
-      <div class="matched-data">
-        <p>空いてる教室:</p>
-        {% for row in non_matching_rows %}
-        <p>{{ row.building }}, {{ row.name }}室</p>
-        {% empty %}
-        <p>空き教室nothing or データ足りん</p>
-        {% endfor %}
-      </div>
+    <div class="matched-data">
+      <p>空いてる教室:</p>
+      {% for row in non_matching_rows %}
+      <p>{{ row.building }}, {{ row.name }}室</p>
+      {% empty %}
+      <p>空き教室nothing or データ足りん</p>
+      {% endfor %}
     </div>
-    <script src="{% static 'map/js/main.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  </div>
+  <script src="{% static 'map/js/main.js' %}"></script>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2eGBY5tE1xDt2ZI7gM5E208hUC6Q4SSE&callback=initMap"
+  async
+  defer
+  ></script>
   </body>
 </html>
-

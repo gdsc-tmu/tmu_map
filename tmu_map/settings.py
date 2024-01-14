@@ -164,3 +164,4 @@ COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
+X_FRAME_OPTIONS = 'ALLOWALL'

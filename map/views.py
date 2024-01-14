@@ -8,9 +8,9 @@ def search_page(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
         if form.is_valid():
-            season = form.cleaned_data["時期"]
-            day = form.cleaned_data["曜日"]
-            period = form.cleaned_data["時限"]
+            season = form.cleaned_data["semester"]
+            day = form.cleaned_data["day"]
+            period = form.cleaned_data["period"]
 
             joined_tables = join_syllabus_base_info_and_classroom_allocation_full_info()
 
@@ -81,6 +81,3 @@ def get_json_data(non_matching_rows):
 # Go to class Location Map
 def class_location_map(request):
     return render(request, "map/class_location_map.html")
-
-def index(request):
-    return render(request, 'map/index.html')

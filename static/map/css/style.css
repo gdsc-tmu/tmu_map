@@ -1,5 +1,8 @@
+* {
+  font-family: Tsukushi B Round Gothic;
+}
+
 body, html {
-  font-family: sans-serif;
   height: 100%;
 }
 
@@ -14,6 +17,163 @@ body, html {
   height: 100%;
 }
 
+/* sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #FFDCBC;
+  overflow-x: hidden;
+  transition: 0.4s;
+  padding-top: 60px;
+  border-radius: 0px 15px 15px 0px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar .closebtn {
+  display: block;
+  transition: 0.4s;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0px;
+}
+
+.sidebar .closebtn:hover {
+  cursor: pointer;
+}
+
+.openbtn {
+  font-size: 20px;
+  background-color: #FFDCBC;
+  border-style: solid;
+  border-color: black;
+  padding: 10px 15px;
+  margin: 10px 0px;
+  border-radius: 25px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  box-shadow: 0 0 8px gray;
+}
+
+.openbtn:hover {
+  cursor: pointer;
+}
+
+#main {
+  transition: margin-left .5s;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #F69F4E;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 220px;
+  height: 56px;
+  border: none;
+  color: black;
+  box-shadow: 0 0 8px gray;
+  font-size: 32px;
+  text-align: center;
+
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover {
+  cursor: pointer;
+}
+
+.dropDownSection {
+  margin-top: 100px;
+}
+
+.dropDownSection .dropdown{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.dropDownSection .submitButton {
+  width: 108.44px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 40px;
+  background: #F69F4E;
+  font-size: 32px;
+  cursor: pointer;
+  border: none;
+  color: black;
+  box-shadow: 0 0 8px gray;
+}
+
+.dropDownSection .submitButton:hover {
+  cursor: pointer;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  overflow:auto;
+  cursor: pointer;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display:block;
+}
+
+.link1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.link1:hover {
+  cursor: pointer;
+}
+
+.link2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.link2:hover {
+  cursor: pointer;
+}
+
+
+/* Results as lists*/
 ul {
   list-style: none;
 }
@@ -34,67 +194,4 @@ ul {
   padding: 20px;
   border: 2px solid gainsboro;
   border-radius: 20px;
-}
-
-/* sidebar */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #FFDCBC;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  background-color: #FFDCBC;
-  border-style: solid;
-  border-color: black;
-  padding: 10px 15px;
-  margin: 10px 0px;
-  border-radius: 20px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
-.openbtn:hover {
-  background-color: #FFDCBC;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
 }

@@ -30,7 +30,6 @@ class SearchForm(forms.Form):
         ('7限', '7限'),
     ]
 
-    時期 = forms.ChoiceField(choices=SEASON_CHOICES, widget=forms.Select(attrs={'class': 'custom-select'}))
-    曜日 = forms.ChoiceField(choices=DAY_CHOICES, widget=forms.Select(attrs={'class': 'custom-select'}))
-    時限 = forms.ChoiceField(choices=PERIOD_CHOICES, widget=forms.Select(attrs={'class': 'custom-select'}))
-
+    semester = forms.ChoiceField(choices=SEASON_CHOICES, widget=forms.Select(attrs={'class': 'custom-select', 'name': 'semester', 'id': 'semesterDropdown'}))
+    day = forms.ChoiceField(choices=DAY_CHOICES, widget=forms.Select(attrs={'class': 'custom-select', 'name': 'semester', 'id': 'dayDropdown'}))
+    period = forms.ChoiceField(choices=PERIOD_CHOICES, widget=forms.Select(attrs={'class': 'custom-select', 'name': 'semester', 'id': 'periodDropdown'}))
