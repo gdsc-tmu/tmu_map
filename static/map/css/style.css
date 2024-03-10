@@ -195,3 +195,13 @@ ul {
   border: 2px solid gainsboro;
   border-radius: 20px;
 }
+
+
+.location-tag {
+  background-image:url("../img/flag2.svg");
+  background-repeat: no-repeat;
+  color: black;
+  font-size: 14px;
+  padding: 10px 10px 20px 15px;
+}
+

@@ -6,14 +6,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'map/css/style.css' %}" />
+    <script src="{% static 'map/js/main.js' %}"></script>
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "AIzaSyAEkG8-pGM0wpINFRHSGqVB9h0z8NCEudI",
+      v: "beta",
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+    </script>
     <script>
-      function TMUmapHome() {
-        const centreAtTMU = { lat: 35.616957028655015, lng: 139.37734852834322 };
-            var map = new google.maps.Map(document.getElementById("map"), {
+        let map;
+        async function initMap() {
+          let { Map } = await google.maps.importLibrary("maps");
+          let { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+          
+
+          try {
+            console.log("Map is initialized");
+            let mapData = JSON.parse('{{ data|safe }}');
+
+            let lastLocation = mapData[1];
+
+            map = new Map(document.getElementById("map"), {
+            center: { lat: lastLocation.lat, lng: lastLocation.lng },
+            zoom: 18, 
+            disableDefaultUI: true,
+            zoomControl: true,
+            mapId: 'YOUR_MAP_ID'
+
+            });
+
+            for (let i = 0; i < mapData.length; i++) {
+              let location = mapData[i];
+              let coordinate = new google.maps.LatLng(location.lat, location.lng);
+              let locationTag = document.createElement("div");
+              locationTag.className = "location-tag";
+              locationTag.textContent = location.title;
+
+              let marker = new AdvancedMarkerElement({
+                map: map,
+                position: coordinate,
+                content: locationTag,
+              });
+              
+            }
+          } catch (e) {
+            console.log(e);
+            TMUmapHome();
+          }
+        }
+
+        async function TMUmapHome() {
+            let { Map, InfoWindow } = await google.maps.importLibrary("maps");
+            let { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+            const centreAtTMU = { lat: 35.616957028655015, lng: 139.37734852834322 };
+            
+            map = new Map(document.getElementById("map"), {
             center: centreAtTMU,
             zoom: 18,
             disableDefaultUI: true,
             zoomControl: true,
+            mapId: 'YOUR_MAP_ID'
             });
 
             const contentString =
@@ -24,60 +76,26 @@
             '<h2>製作者：<a href="https://twitter.com/GdscTmu" target="blank">GDSC TMUメンバーs</a><h2>' +
             "</div>";
 
-            var offset = new google.maps.Size(0, 150);
+            let offset = new google.maps.Size(0, 150);
 
-            const infowindow = new google.maps.InfoWindow({
+            const infowindow = new InfoWindow({
               content: contentString,
               ariaLabel: "TMU",
               pixelOffset: offset
             });
             
-            const marker = new google.maps.Marker({
+            const centreMarker = new AdvancedMarkerElement({
+              map: map,
               position: centreAtTMU,
-              map,
               title: "TMU Map",
             });
 
             infowindow.open({
-            anchor: marker,
+            anchor: centreMarker,
             map,
             });
-      }
-
-      function initMap() {
-          try {
-            var mapData = JSON.parse('{{ data|safe }}');
-
-            var lastLocation = mapData[1]; // Get the last location
-
-            var map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: lastLocation.lat, lng: lastLocation.lng }, // Set the center to the last location
-            zoom: 18, // Adjust the initial zoom level as desired
-            disableDefaultUI: true, // Disable UI controls
-            zoomControl: true, // Enable zoom controls
-
-            });
-
-            for (var i = 0; i < mapData.length; i++) {
-              var location = mapData[i];
-              var coordinate = new google.maps.LatLng(location.lat, location.lng);
-
-              var marker = new google.maps.Marker({
-                position: coordinate,
-                map: map,
-                title: location.title,
-                label: {
-                  text: location.title,
-                  color: "black",
-                  fontSize: "20px",
-                },
-              });
-            }
-          } catch (e) {
-            console.log(e);
-            TMUmapHome();
-          }
-      }
+        }
+        initMap();
     </script>
   <title>TMU Map</title>
   </head>
@@ -168,11 +186,5 @@
       {% endfor %}
     </div>
   </div>
-  <script src="{% static 'map/js/main.js' %}"></script>
-  <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2eGBY5tE1xDt2ZI7gM5E208hUC6Q4SSE&callback=initMap"
-  async
-  defer
-  ></script>
   </body>
 </html>
