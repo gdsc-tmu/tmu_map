@@ -196,7 +196,6 @@ ul {
   border-radius: 20px;
 }
 
-
 .location-tag {
   background-image:url("../img/flag2.svg");
   background-repeat: no-repeat;
@@ -204,4 +203,17 @@ ul {
   font-size: 14px;
   padding: 10px 10px 20px 15px;
 }
+.searched-time {
+  position: absolute;
+  top: 30px;
+  left: 155px;
+  background-color: #FFFFFF;
+  padding: 0px 5px 0px 5px;
+  border: solid #E9E6E6;
+  border-radius: 5px;
+}
 
+.searched-time p {
+  margin: 0;
+  padding: 0;
+}

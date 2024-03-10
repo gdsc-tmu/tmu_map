@@ -20,6 +20,8 @@ def search_page(request):
 
             json_data = get_json_data(non_matching_rows)
 
+            print(season, day, period)
+
             return render(
                 request,
                 "map/search.html",
@@ -28,6 +30,9 @@ def search_page(request):
                     "form": form,
                     "results": results,
                     "non_matching_rows": non_matching_rows,
+                    "searched_season": season,
+                    "searched_day": day,
+                    "searched_period": period,
                 },
             )
 
